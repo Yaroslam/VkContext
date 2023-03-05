@@ -1,0 +1,15 @@
+{
+    "name": "happy/labirint",
+    "autoload": {
+        "psr-4": {
+            "Php\\Labirint\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yaroslam",
+            "email": "Vestnik700@gmail.com"
+        }
+    ],
+    "require": {}
+}
