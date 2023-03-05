@@ -149,36 +149,40 @@ function inputLabirint(int $height, int $width): array
     return $labirint;
 }
 
-function printShortestPath($from_name, $to_name, $routes) {
-    $graph = new Graph();
-    foreach ($routes as $route) {
-        $from = $route['from'];
-        $to = $route['to'];
-        $price = $route['price'];
-        if (! array_key_exists($from, $graph->getNodes())) {
-            $from_node = new Node($from);
-            $graph->add($from_node);
-        } else {
-            $from_node = $graph->getNode($from);
+function printShortestPath($fromName, $toName, $routes) {
+    if($fromName == $toName){
+        echo "Вход совпадает с выходом";
+    } else {
+        $graph = new Graph();
+        foreach ($routes as $route) {
+            $from = $route['from'];
+            $to = $route['to'];
+            $price = $route['price'];
+            if (!array_key_exists($from, $graph->getNodes())) {
+                $from_node = new Node($from);
+                $graph->add($from_node);
+            } else {
+                $from_node = $graph->getNode($from);
+            }
+            if (!array_key_exists($to, $graph->getNodes())) {
+                $to_node = new Node($to);
+                $graph->add($to_node);
+            } else {
+                $to_node = $graph->getNode($to);
+            }
+            $from_node->connect($to_node, $price);
         }
-        if (! array_key_exists($to, $graph->getNodes())) {
-            $to_node = new Node($to);
-            $graph->add($to_node);
-        } else {
-            $to_node = $graph->getNode($to);
-        }
-        $from_node->connect($to_node, $price);
-    }
 
-    $g = new Dijkstra($graph);
-    $start_node = $graph->getNode($from_name);
-    $end_node = $graph->getNode($to_name);
-    $g->setStartingNode($start_node);
-    $g->setEndingNode($end_node);
-    echo "From: " . $start_node->getId() . "\n";
-    echo "To: " . $end_node->getId() . "\n";
-    echo "Route: " . $g->getLiteralShortestPath() . "\n";
-    echo "Total: " . $g->getDistance() . "\n";
+        $g = new Dijkstra($graph);
+        $start_node = $graph->getNode($fromName);
+        $end_node = $graph->getNode($toName);
+        $g->setStartingNode($start_node);
+        $g->setEndingNode($end_node);
+        echo "From: " . $start_node->getId() . "\n";
+        echo "To: " . $end_node->getId() . "\n";
+        echo "Route: " . $g->getLiteralShortestPath() . "\n";
+        echo "Total: " . $g->getDistance() . "\n";
+    }
 }
 
 
